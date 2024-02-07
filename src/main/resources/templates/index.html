@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>AutoFlex</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" th:href="@{/css/main.css}" />
+    <script
+      src="https://kit.fontawesome.com/c73c7e0ed2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <!-- ------------- NAVBAR ------------------- -->
+    <header class="naav">
+      <nav class="navbar navbar-expand-lg blur-bg shadow-sm">
+        <div class="container-fluid mx-2 p-2">
+          <a class="navbar-brand fw-bold" href="/">AutoFlex</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#home">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#features">Features</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#contact">Contact</a>
+              </li>
+            </ul>
+            <div class="d-flex">
+              <a class="btn btn-outline-primary mx-2 px-3" href="/login">
+                Sign In
+              </a>
+              <a class="btn btn-primary mx-2 px-3" href="/register">
+                Sign Up
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <!-- ------------- MAIN ------------------- -->
+    <div class="container-fluid">
+      <div class="px-4 pt-2 text-center border-bottom" id="home">
+        <h1 class="display-2 fw-bold text-body">AutoFlex</h1>
+        <h3 class="display-6 my-2 fw-semibold text-body-secondary">
+          Your Journey, Your Way
+        </h3>
+        <div class="col-lg-9 mx-auto">
+          <p class="my-4 fs-5">
+            Welcome to AutoFlex, Embark on a journey with AutoFlex - where
+            flexibility, efficiency, and cutting-edge technology converge to
+            elevate your car rental experience. Your journey, your way - because
+            with AutoFlex, the road is yours to command.
+          </p>
+          <div class="d-grid gap-2 d-sm-flex justify-content-sm-center mb-5">
+            <a
+              type="button"
+              th:href="@{/register}"
+              class="btn btn-primary btn-lg px-4 me-sm-3"
+            >
+              Getting Started
+            </a>
+            <a
+              type="button"
+              th:href="@{/login}"
+              class="btn btn-outline-secondary btn-lg px-4"
+            >
+              Sign In
+            </a>
+          </div>
+        </div>
+        <div class="overflow-hidden" style="max-height: 30vh">
+          <div class="container px-5">
+            <img
+              src="https://backiee.com/static/wpdb/wallpapers/560x315/309295.jpg"
+              class="img-fluid border rounded-3 shadow-lg mb-4"
+              alt="Example image"
+              width="700"
+              height="500"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------- SECTION 1 ------------------- -->
+
+    <!-- ------------- SECTION 2 ------------------- -->
+    <div class="container-fluid px-4 py-5 bg-body" id="features">
+      <h2 class="pb-2 mx-3 border-bottom">Features</h2>
+      <div class="row container mx-auto g-4 py-5 row-cols-1 row-cols-lg-3">
+        <div class="feature col">
+          <div
+            class="feature-icon rounded-3 d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"
+          >
+            <i class="fa-solid p-2 bi fa-palette"></i>
+          </div>
+          <h3 class="fs-2 text-body-emphasis mb-3">User-Friendly Interface</h3>
+          <p class="">
+            AutoFlex ensures an easy and intuitive platform, making car
+            reservations and management a breeze for all users.
+          </p>
+        </div>
+        <div class="feature col">
+          <div
+            class="feature-icon rounded-3 d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"
+          >
+            <i class="fa-solid p-2 bi fa-scale-balanced"></i>
+          </div>
+          <h3 class="fs-2 text-body-emphasis mb-3">Dynamic Pricing Model</h3>
+          <p>
+            Enjoy fair and competitive pricing with AutoFlex's dynamic model,
+            adjusting rates based on demand and availability.
+          </p>
+        </div>
+        <div class="feature col">
+          <div
+            class="feature-icon rounded-3 d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3"
+          >
+            <i class="fa-solid p-2 bi fa-wand-magic-sparkles"></i>
+          </div>
+          <h3 class="fs-2 text-body-emphasis mb-3">Real-Time Updates</h3>
+          <p>
+            Stay informed instantly with AutoFlex's real-time notifications,
+            providing timely updates on reservations and changes to enhance your
+            control and convenience.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------- SECTION 3 ------------------- -->
+    <div class="container-fluid col-xxl-8 p-5 border-top">
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+        <div class="col-10 col-sm-8 col-lg-6">
+          <img
+            src="https://d2m3nfprmhqjvd.cloudfront.net/blog/20221004191046/Hyundai-Venue-2022-1160x653.jpg"
+            class="d-block mx-lg-auto rounded-3 shadow-sm object-fit-cover img-fluid"
+            alt="Bootstrap Themes"
+            width="500"
+            height="400"
+            loading="lazy"
+          />
+        </div>
+        <div class="col-lg-6">
+          <h1 class="display-6 fw-bold text-body-emphasis lh-1 mb-3">
+            Your Journey, Your Way
+          </h1>
+          <p class="lead">
+            "Your Journey, Your Way" is not just a tagline; it's a commitment we
+            uphold at AutoFlex. We understand that every journey is unique, and
+            we've tailored our car rental platform to ensure that your
+            experience is as individual as you are.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ------------- FOOTER ------------------- -->
+    <div class="container-fluid bg-body pb-2 px-5 bottom-0" id="contact">
+      <footer
+        class="d-flex flex-wrap justify-content-between align-items-center py-3 border-top"
+      >
+        <p class="col-md-4 mb-0 text-body-secondary">© 2024 AutoFlex, Inc</p>
+
+        <ul class="nav col-md-4 justify-content-end">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">Features</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-body-secondary">Contact us</a>
+          </li>
+        </ul>
+      </footer>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
