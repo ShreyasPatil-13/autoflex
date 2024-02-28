@@ -8,7 +8,9 @@ import com.cars.autoflex.model.User;
 
 public interface BookingService {
 	Booking saveBooking(Booking booking);
+	
 	List<Booking> getBookings();
+	
 	List<Booking> getBookingByCustomer(User cutomer );
 	
 	Car findByCar(Car car);

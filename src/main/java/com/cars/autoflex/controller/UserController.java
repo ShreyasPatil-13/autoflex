@@ -73,9 +73,22 @@ public class UserController {
 
     @PostMapping("/saveuser")
     public String newUser(@ModelAttribute("user") User user, @RequestParam MultipartFile image, HttpSession session) {
-        user.setImageName(image.getOriginalFilename());
+        
+    	// check if user already exists
+    	User isUserExist=userService.findByEmail(user.getEmail());
+    	
+    	if(isUserExist != null) {
+    		session.setAttribute("message", new Message("warning", "User already exist!! Please sign in to continue."));
+            return "register";
+    	}
+    	
+    	// save image name to user (db)
+    	user.setImageName(image.getOriginalFilename());
 
+    	// save image in folder
         UserController.uploadImage(image);
+
+        // save user to db
         User savedUser = userService.saveUser(user);
 
         if (savedUser != null) {
@@ -107,10 +120,12 @@ public class UserController {
 	
 	@PostMapping("/checkuser")
 	public String checkUser(@ModelAttribute("userLogin") User user, HttpSession session, Model model) {
+		
 		User checkUserData=userService.findByEmail(user.getEmail());
+		
 		if(checkUserData != null && user.getPassword().equals(checkUserData.getPassword())) {
 			session.setAttribute("userData", checkUserData);
-			return checkUserData.getRole().equals("customer") ? "redirect:/customer/customerHome/"+checkUserData.getUserId():"redirect:/owner/ownerHome/"+checkUserData.getUserId();
+			return checkUserData.getRole().equals("customer") ? "redirect:/customer/customerHome/"+checkUserData.getUserId() : "redirect:/owner/ownerHome/"+checkUserData.getUserId();
 		}
 		session.setAttribute("message", new Message("danger", "Invalid Credentials !! Try again."));
 		return "login";
@@ -122,54 +137,82 @@ public class UserController {
 	
 	@GetMapping("/customer/customerHome/{id}")	
 	public String customer(@PathVariable Long id, Model model, HttpSession session) {
-		User userData=(User) session.getAttribute("userData");
-		
-	    if (userData != null && userData.getRole().equals("customer") && userData.getUserId().equals(id)) {
-	        model.addAttribute("userData", userData);
-	        model.addAttribute("availableCars", carService.getCarsByStatus("available"));
-	        return "customer/customerHome";
-	    } else {
-	        return "redirect:/login";
-	    }
+		try {
+			User userData=(User) session.getAttribute("userData");
+			
+		    if (userData != null && userData.getRole().equals("customer") && userData.getUserId().equals(id)) {
+		        model.addAttribute("availableCars", carService.getCarsByStatus("available"));
+		        return "customer/customerHome";
+		    } else {
+		        return "redirect:/login";
+		    }
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}	
 	
 
 //	------------------ CUSTOMER PROFILE PAGE -------------------
 	@GetMapping("/customer/profile/{id}")
 	public String customerProfile(@PathVariable Long id, HttpSession session) {
-		return "customer/profile";
+		try {
+			return "customer/profile";			
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 	
 //	------------------ OWNER HOME PAGE -------------------
 	@GetMapping("/owner/ownerHome/{userId}")
 	public String owner(@PathVariable Long userId, HttpSession session, Model model) {
-	    User userData = (User) session.getAttribute("userData");
-	    if (userData != null && userData.getRole().equals("owner") && userData.getUserId().equals(userId)) {
-	        model.addAttribute("userData", userData);
-	        model.addAttribute("bookings", bookingService.findByOwner(userId));
-	        return "owner/ownerHome";
-	    } else {
-	        return "redirect:/login";
-	    }
+		try {
+		    User userData = (User) session.getAttribute("userData");
+		    if (userData != null && userData.getRole().equals("owner") && userData.getUserId().equals(userId)) {
+		        model.addAttribute("bookings", bookingService.findByOwner(userId));
+		        return "owner/ownerHome";
+		    } else {
+		        return "redirect:/login";
+		    }
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}	
 
 //	------------------ OWNED CARS PAGE -------------------
 	@GetMapping("/owner/ownedCars/{userId}")
-	public String ownedCars(@PathVariable Long userId, Model model) {
-	    User user = userService.findById(userId); 
-	    List<Car> userCars = carService.getCarsByOwner(user);
+	public String ownedCars(@PathVariable Long userId, Model model,HttpSession session) {
+		try {
+		    User user = userService.findById(userId); 
+		    List<Car> userCars = carService.getCarsByOwner(user);
 
-	        model.addAttribute("newCar", new Car());
-	        model.addAttribute("cars", userCars);
+		        model.addAttribute("newCar", new Car());
+		        model.addAttribute("cars", userCars);
 
-	    return "owner/ownedCars";
+		    return "owner/ownedCars";
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 
 
 //	------------------ OWNER PROFILE PAGE -------------------
 	@GetMapping("/owner/profile/{id}")
 	public String ownerProfile(@PathVariable Long id, HttpSession session) {
-		return "owner/profile";
+		try {
+			return "owner/profile";			
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 	
 

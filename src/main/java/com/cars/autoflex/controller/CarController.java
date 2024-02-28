@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.cars.autoflex.helpers.Message;
 import com.cars.autoflex.model.Booking;
 import com.cars.autoflex.model.Car;
 import com.cars.autoflex.model.User;
@@ -39,9 +40,15 @@ public class CarController {
 
 	@GetMapping("/owner/addCar")
 	public String addCar( Model model, HttpSession session) {
-	    Car car = new Car();
-	    model.addAttribute("newCar", car);
-	    return "owner/newCar";
+		try {
+		    Car car = new Car();
+		    model.addAttribute("newCar", car);
+		    return "owner/newCar";
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 	
 //	------------------ ADD CAR  -------------------
@@ -61,39 +68,35 @@ public class CarController {
 	
 	
 	@PostMapping("/savecar")
-	public String saveCar(@ModelAttribute("newCar") Car car,@RequestParam MultipartFile image, HttpSession session) {
-
-		User user = (User) session.getAttribute("userData");
-	    System.out.println(user);
-	    if (user != null) {
-	        try {
-	    		car.setImageName(image.getOriginalFilename());
-	        	car.setOwner(user);
-		    	car.setStatus("available");
-		        carService.addCar(car);
-
-				CarController.uploadImage(image);
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+	public String saveCar(@ModelAttribute("newCar") Car car,@RequestParam MultipartFile image, HttpSession session) {  
+		try {
+			User user = (User) session.getAttribute("userData");
+    		
+			car.setImageName(image.getOriginalFilename());
+        	car.setOwner(user);
+	    	car.setStatus("available");
+	        carService.addCar(car);
+	        
+	        CarController.uploadImage(image);
 	        
 	        return "redirect:/owner/ownedCars/" + user.getUserId();
-	    } else {
-	        return "redirect:/login";
 	    }
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 
 	
 //	------------------ UPDATE CAR DETAILS -------------------
 	
 	@PostMapping("/owner/ownedCars/editCar/{id}")
-	public String editCar(@PathVariable Long id, @ModelAttribute Car car, @RequestParam MultipartFile image, Model model) {
+	public String editCar(@PathVariable Long id, @ModelAttribute Car car, @RequestParam MultipartFile image, Model model, HttpSession session) {
 
-	    Car existingCar = carService.getCar(id);
+		try {
+		    Car existingCar = carService.getCar(id);
 
-	    try {
-	        existingCar.setCarName(car.getCarName());
+		    existingCar.setCarName(car.getCarName());
 	        existingCar.setCarModel(car.getCarModel());
 	        existingCar.setCity(car.getCity());
 	        existingCar.setRatePerDay(car.getRatePerDay());
@@ -106,12 +109,14 @@ public class CarController {
 	            CarController.uploadImage(image);
 	        }
 
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    carService.addCar(existingCar);
+		    carService.addCar(existingCar);
 
-	    return "redirect:/owner/ownedCars/carDetails/" + existingCar.getCarId();
+		    return "redirect:/owner/ownedCars/carDetails/" + existingCar.getCarId();
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 
 
@@ -119,9 +124,15 @@ public class CarController {
 	
 	@GetMapping("/owner/ownedCars/deleteCar/{id}")
 	public String deleteCar(@PathVariable Long id, HttpSession session) {
-		User user= (User) session.getAttribute("userData");
-		carService.deleteCar(id);
-		return "redirect:/owner/ownedCars/"+user.getUserId();
+		try {
+			User user= (User) session.getAttribute("userData");
+			carService.deleteCar(id);
+			return "redirect:/owner/ownedCars/"+user.getUserId();			
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 	
 
@@ -129,17 +140,31 @@ public class CarController {
 	
 	@GetMapping("/customer/car/{id}")
 	public String carDeatilsCust(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("carData", carService.getCar(id));
-		model.addAttribute("newBooking", new Booking());
-		return "customer/carDetails";
+		try {
+
+			model.addAttribute("carData", carService.getCar(id));
+			model.addAttribute("newBooking", new Booking());
+			return "customer/carDetails";
+			
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 	
 //	------------------ OWNER CAR DETAILS PAGE -------------------
 	
 	@GetMapping("/owner/ownedCars/carDetails/{id}")
 	public String carDeatils(@PathVariable Long id, Model model, HttpSession session) {
-		model.addAttribute("carData", carService.getCar(id));
-		return "owner/carDetails";
+		try {
+			model.addAttribute("carData", carService.getCar(id));
+			return "owner/carDetails";	
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
 	}
 
 	
@@ -148,15 +173,22 @@ public class CarController {
 	@GetMapping("/customer/customerHome/search")
 	public String carBycity(@RequestParam String city ,Model model, HttpSession session) {
 		
-		User userData=(User) session.getAttribute("userData");
-		
-	    if (userData != null) {
-	        model.addAttribute("userData", userData);
-	        model.addAttribute("availableCars", carService.getCarsByCityAndStatus(city,"available"));
-	        return "customer/customerHome";
-	    } else {
-	        return "redirect:/login";
-	    }
+		try {
+			User userData=(User) session.getAttribute("userData");
+			
+		    if (userData != null) {
+		        model.addAttribute("availableCars", carService.getCarsByCityAndStatus(city,"available"));
+		        return "customer/customerHome";
+		    } else {
+		        return "redirect:/login";
+		    }
+			
+		}
+		catch(Exception e) {
+			session.setAttribute("message", new Message("warning", "Session Timed Out!!"));
+			return "redirect:/login";
+		}
+
 	}
 	
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<html lang="en" xmlns:th="https://www.thymeleaf.org/" data-bs-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,30 +21,22 @@
   <body class="onwer-body">
     <!-- ------------- NAVBAR ------------------- -->
     <header class="naav">
-      <nav class="navbar navbar-expand-lg blur-bg shadow-sm">
-        <div class="container-fluid mx-2 px-2">
-          <a
-            class="navbar-brand fw-bold"
-            th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}"
-            >AutoFlex</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
+      <nav class="navbar navbar-expand-lg bg-blur">
+      <div class="container-fluid p-2">
+        <a class="navbar-brand px-3 " th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}">
+            <i class="fa-solid fa-layer-group fs-3 text-gradient me-1"></i>
+            <span class="fw-semibold fs-3 ">Auto<span class="text-gradient fw-bold ">FleX</span></span>
+        </a>        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link link"
                   aria-current="page"
                   th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}"
                   >Home</a
@@ -52,13 +44,13 @@
               </li>
               <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link link"
                   th:href="@{/owner/ownedCars/{id}(id=${session.userData.userId})}"
                   >My Cars</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link active fw-medium border-bottom border-2 border-black">Profile</a>
+                <a class="nav-link active-link link">Profile</a>
               </li>
             </ul>
 
@@ -71,7 +63,7 @@
                 aria-expanded="false"
               >
                 <img 
-                    th:src="@{'/images/users/'+${session.userData.imageName}}"
+                  th:src="@{'/images/users/'+${session.userData.imageName}}"
                   alt="mdo"
                   width="32"
                   height="32"
@@ -117,9 +109,9 @@
 	        <h1 class="h4 fw-medium text-dark-emphasis">Profile</h1>
             <hr class="table-group-divider mb-3" />
 
-            <div class="mx-auto border mb-3 bg-body-tertiary rounded-2 p-3 bg-pattern">
+            <div class="mx-auto border mb-3 bg-body-secondary rounded-2 p-3 ">
                 
-                <div class="row justify-content-center align-items-center p-2 my-2 mx-auto blur-bg border">
+                <div class="row justify-content-center align-items-center p-2 my-2 mx-auto">
 		        	<div class="col-md-4 ">
 	                    <div class="text-center p-3 ">
 	                        <img 
@@ -135,26 +127,26 @@
 		                    <!-- User Information -->
 		                    <div class="row mx-auto text-secondary">
 
-		                        <h3 class="display-4 fw-medium mb-3 text-success-emphasis text-capitalize">
-			                        <span class="" th:text="${session.userData.firstName}+' '+${session.userData.lastName}"></span>
+		                        <h3 class="display-4 fw-bold mb-3 text-capitalize text-gradient">
+			                        <span th:text="${session.userData.firstName}+' '+${session.userData.lastName}"></span>
 		                        </h3>
 		                        
-		                        <h6 class="fs-5 lead fw-normal mb-3">
+		                        <h6 class="fs-5 text-body-secondary lead fw-normal mb-3">
 			                        <i class="fa-solid fa-envelope"></i>&nbsp;
 			                        <span class="fst-italic fw-normal " th:text="${session.userData.email}"></span>
 		                        </h6>
 		                        
-		                        <h6 class="fs-5 lead fw-medium mb-3">                  	
+		                        <h6 class="fs-5 text-body-secondary lead fw-medium mb-3">                  	
 			                        <i class="fa-solid fa-location-dot me-2"></i>&nbsp;
 			                        <span th:text="${session.userData.city}"></span>
 		                        </h6>
 		                        
-		                        <h6 class="fs-5 lead fw-medium mb-3">
+		                        <h6 class="fs-5 text-body-secondary lead fw-medium mb-3">
 		                        	<i class="fa-solid fa-phone-volume"></i>&nbsp;
 			                        <span th:text="${session.userData.contactNumber}"></span>	
 		                        </h6>
 		                        
-		                        <h6 class="fs-5 lead fw-medium mb-3"> 
+		                        <h6 class="fs-5 text-body-secondary lead fw-medium mb-3"> 
 		                        	<i class="fa-solid fa-user"></i>&nbsp;                    
 			                        <span th:text="${session.userData.role}"></span>
 		                        </h6>
@@ -175,7 +167,7 @@
 
     <!-- Logout Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered">">
+	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h1 class="modal-title fs-5" id="exampleModalLabel">Log Out</h1>

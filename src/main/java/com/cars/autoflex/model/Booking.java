@@ -1,7 +1,6 @@
 package com.cars.autoflex.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,8 +30,8 @@ public class Booking {
     private LocalDate dateFrom;
     private LocalDate dateTo;
     private int days;
-    private LocalDateTime bookingDate;
-    private String status; // (Pending/Completed/Cancelled)
+    private LocalDate bookingDate;
+    private String status;
     
     
 }

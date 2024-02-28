@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<html lang="en" xmlns:th="https://www.thymeleaf.org" data-bs-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,37 +21,29 @@
   <body class="onwer-body">
     <!-- ------------- NAVBAR ------------------- -->
     <header class="naav">
-      <nav class="navbar navbar-expand-lg blur-bg shadow-sm">
-        <div class="container-fluid mx-2 px-2">
-          <a
-            class="navbar-brand fw-bold"
-            th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}"
-            >AutoFlex</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+      <nav class="navbar navbar-expand-lg bg-blur">
+      <div class="container-fluid p-2">
+        <a class="navbar-brand px-3 " th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}">
+            <i class="fa-solid fa-layer-group fs-3 text-gradient me-1"></i>
+            <span class="fw-semibold fs-3 ">Auto<span class="text-gradient fw-bold ">FleX</span></span>
+        </a>        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
                 <a
-                  class="nav-link"
+                  class="nav-link link"
                   aria-current="page"
                   th:href="@{/owner/ownerHome/{id}(id=${session.userData.userId})}"
                   >Home</a
                 >
               </li>
               <li class="nav-item">
-                <a class="nav-link active fw-medium border-bottom border-2 border-black" >My Cars</a>
+                <a class="nav-link active-link link" >My Cars</a>
               </li>
             </ul>
 
@@ -106,11 +98,11 @@
     <div class="container my-3 my-md-4 px-4">
       <div class="row">
         <div class="col">
-          <div class="row bg-body p-3 rounded-3">
+          <div class="row bg-body px-md-3 py-3 rounded-3">
             <div class="d-flex flex-row justify-content-between">
               <h1 class="h4 fw-medium text-dark-emphasis">My Cars</h1>
               <a th:href="@{/owner/addCar}" class="btn btn-primary mb-2">
-                <i class="fa-solid fa-plus"></i> New Car
+                <i class="fa-solid fa-plus"></i> Add New Car
               </a>
             </div>
             <hr class="table-group-divider mb-3" />
@@ -150,34 +142,34 @@
                     <img
                       th:src="@{'/images/cars/'+${car.imageName}}"
                       th:alt="${car.imageName}"
-                      class="img-fluid rounded-4 mb-3 bg-body"
+                      class="img-fluid rounded-4 mb-3 bg-body mt-2"
                       style="width: 300px; height: 200px; object-fit: cover;"
                     />
                   </div>
 
 
-                  <div class="col-12 col-md-6 ">
+                  <div class="col-12 col-md-6 justify-content-between d-flex flex-column">
                      
                     <h5
-                      class="mb-2 text-body text-capitalize"
+                      class="mb-3 fs-4 text-body text-capitalize"
                       th:text="${car.carName} +' ' + ${car.carModel}"
                     ></h5>
                     <h6
-                      class="text-success fw-bold mb-3 text-uppercase"
+                      class="text-danger fw-bold mb-3 fs-5 text-uppercase"
                       th:text="${car.registrationNumber}"
                     ></h6>
-                    <h6 class="mb-3 text-secondary text-capitalize">
+                    <h6 class="mb-3 text-body-secondary text-capitalize">
                       <i class="fa-solid fa-location-dot me-2"></i>
                       <span th:text="${car.city}"></span>
                     </h6>
-                    <h6 class="mb-3 text-secondary text-capitalize">
+                    <h6 class="mb-3 text-body-secondary text-capitalize">
                       <i class="fa-solid fa-users me-2"></i>
                       <span th:text="${car.seats}"></span> Seats
                     </h6>
-                    <div class="row">
+                    <div class="row justify-content-end d-flex">
                       <a
                         th:href="@{/owner/ownedCars/carDetails/{id}(id=${car.carId})}"
-                        class="btn btn-sm w-auto ms-2 px-3 btn-dark"
+                        class="btn btn-sm w-auto px-3 btn-light"
                         >View Details</a
                       >
                     </div>
@@ -192,7 +184,7 @@
     
         <!-- Logout Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered">">
+	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <h1 class="modal-title fs-5" id="exampleModalLabel">Log Out</h1>

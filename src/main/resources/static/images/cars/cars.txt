@@ -1,0 +1,12 @@
+| CarName      | Model      | RatePerDay | City       | Capacity | RegistrationNumber | Description                            |
+|--------------|------------|------------|------------|----------|---------------------|----------------------------------------|
+| Toyota Camry | 2022 Sedan | 60.00      | Mumbai     | 5        | MH01AB1234          | Comfortable sedan with advanced features|
+| Honda Civic  | 2022 Coupe | 55.00      | Pune       | 4        | MH02CD5678          | Sporty coupe with sleek design         |
+| Maruti Swift | 2022 Hatch | 45.00      | Nagpur     | 5        | MH03EF9012          | Fuel-efficient hatchback               |
+| Ford Mustang | 2022 Coupe | 75.00      | Nashik     | 4        | MH04GH3456          | Iconic muscle car for enthusiasts      |
+| Hyundai Venue| 2022 SUV   | 50.00      | Thane      | 5        | MH05IJ6789          | Compact SUV with modern features       |
+| BMW X5       | 2022 SUV   | 100.00     | Aurangabad | 7        | MH06KL0123          | Luxury SUV with premium interiors      |
+| Tata Nano    | 2022 Mini  | 30.00      | Solapur    | 2        | MH07MN4567          | Affordable and compact city car        |
+| Volkswagen Polo | 2022 Hatch | 40.00   | Kolhapur   | 5        | MH08OP8901          | Stylish hatchback with German engineering|
+| Mahindra Scorpio | 2022 SUV | 70.00   | Amravati   | 7        | MH09QR2345          | Powerful SUV for off-road adventures   |
+| Mercedes-Benz E-Class | 2022 Sedan | 85.00 | Nanded | 5        | MH10ST6789          | Elegant sedan with cutting-edge technology|
